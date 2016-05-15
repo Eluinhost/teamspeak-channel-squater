@@ -1,0 +1,17 @@
+{
+  "name": "teamspeak-channel-squatter",
+  "version": "0.1.0",
+  "description": "Wrapper libary for running a teamspeak bot that listens on a specific channel join",
+  "main": "./src/Factory.js",
+  "keywords": [
+    "teamspeak",
+    "bot"
+  ],
+  "author": "Eluinhost",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "3.3.x",
+    "lodash": "4.12.x",
+    "node-teamspeak": "1.0.x"
+  }
+}
