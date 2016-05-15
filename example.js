@@ -1,4 +1,4 @@
-const creator = new (require('./src/Factory'))();
+const creator = new (require('teamspeak-channel-squatter'))();
 
 creator
     .withCredentials('serveradmin', 'password', 'TEST')
@@ -17,8 +17,8 @@ creator
             bot.kickClient(clid, 'no perms');
         }
     )
-    .build()
-    .start()
+    .build() // Build the bot
+    .start() // Start the bot
     .then(() => console.log('Connected!'))
     .catch(err => console.error(err));
 
