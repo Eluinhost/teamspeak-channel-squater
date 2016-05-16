@@ -90,7 +90,7 @@ module.exports = class Factory {
     withAllowedGroups(groups = []) {
         groups.forEach(it => validatePositiveInteger(it, 'Invalid group ID'));
 
-        this._allowedGroupIds = groups;
+        this._allowedGroupIds = groups.map(it => it.toString());
         return this;
     }
 

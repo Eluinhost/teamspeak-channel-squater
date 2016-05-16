@@ -68,15 +68,8 @@ module.exports = class Bot {
     _hasPermission(clid) {
         return this._send('clientinfo', { clid: clid }, ['groups'])
             .then(response => {
-                let groupIds = response.client_servergroups;
-
-                // single group is returned as a number
-                if (typeof groupIds === 'number') {
-                    groupIds = [groupIds.toString()]
-                } else {
-                    // returned a comma seperated list of numbers
-                    groupIds = groupIds.split(',');
-                }
+                // single group is returned as a number, multiple as comma separated string
+                let groupIds = response.client_servergroups.toString().split(',');
 
                 return this._allowedGroupIds.length == 0 || intersection(this._allowedGroupIds, groupIds).length > 0;
             });
