@@ -1,5 +1,5 @@
 const TeamSpeakClient = require('node-teamspeak');
-const { intersection } = require('lodash');
+const { intersection, isUndefined } = require('lodash');
 const Promise = require('bluebird');
 
 module.exports = class Bot {
@@ -59,6 +59,7 @@ module.exports = class Bot {
             .then(() => this._useServer())
             .then(() => this._changeName())
             .then(() => this._whoami())
+            .then(() => this.joinChannel(this._channelId))
             .then(() => this._notifyForEvents());
     }
 
@@ -134,6 +135,23 @@ module.exports = class Bot {
      */
     kickClient(clid, message) {
         return this._send('clientkick', { clid: clid, reasonid: 4, reasonmsg: message });
+    }
+
+    /**
+     * Moves a client to the given channel id.
+     *
+     * @param {Number} cid - the id of the channel to move to
+     * @param {Number} [clid] - the client id of the client to move, defaults to the bot itself
+     * @param {String} [password] - the channel password if required
+     */
+    joinChannel(cid, clid = this.whoami.client_id, password) {
+        const payload = { cid, clid };
+
+        if (!isUndefined(password)) {
+            payload.password = password;
+        }
+
+        return this._send('clientmove', payload);
     }
 
     /**
