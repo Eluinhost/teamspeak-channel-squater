@@ -12,6 +12,7 @@ module.exports = class Bot {
 
         this._client = new TeamSpeakClient(this._connectionInfo.address, this._connectionInfo.queryPort);
         this._send = Promise.promisify(this._client.send, this._client);
+        this.whoami = null;
     }
 
     /**
@@ -57,7 +58,15 @@ module.exports = class Bot {
         return this._login()
             .then(() => this._useServer())
             .then(() => this._changeName())
+            .then(() => this._whoami())
             .then(() => this._notifyForEvents());
+    }
+
+    _whoami() {
+        return this._send('whoami', {})
+            .then(response => {
+                this.whoami = response;
+            });
     }
 
     /**
