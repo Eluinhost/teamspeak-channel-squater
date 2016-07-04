@@ -98,6 +98,8 @@ module.exports = class Bot {
 
         const clientId = moveEvent.clid;
 
+        if (clientId === this.whoami.client_id) return; // ourselves!
+
         this._hasPermission(clientId)
             .then(allowed => this._actions[allowed ? 'success' : 'noPerms'](this, clientId))
             .catch(err => console.error('Error when running for client ID', clientId, err));
