@@ -1,6 +1,6 @@
 {
   "name": "teamspeak-channel-squatter",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Wrapper libary for running a teamspeak bot that listens on a specific channel join",
   "main": "./src/Factory.js",
   "keywords": [
